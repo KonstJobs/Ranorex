@@ -5,6 +5,8 @@
  */
 package kcompany.ranorex.tests;
 
+import kcompany.ranorex.classes.Category;
+import kcompany.ranorex.classes.Person;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -14,8 +16,6 @@ import static org.junit.Assert.*;
  */
 public class NewEmptyJUnitTest {
 
-    
-    
     public NewEmptyJUnitTest() {
 
     }
@@ -23,7 +23,9 @@ public class NewEmptyJUnitTest {
     @Test
     public void test() {
 
+        Person person = new Person.Builder("first", "setco").category(Category.SCIENCE).build();
         
+        System.out.println(person.getCategory());
     }
 
 }
