@@ -11,5 +11,21 @@ package kcompany.ranorex.classes;
  */
 public enum Category {
 
-    OTHER, MUSIC, MOVIE, SCIENCE, SPORT, POLITICS
+    OTHER("Other"),
+    MUSIC("Music"),
+    MOVIE("Movie"),
+    SCIENCE("Science"),
+    SPORT("Sport"),
+    POLITICS("Politics");
+
+    private final String category;
+
+    private Category(String category) {
+        this.category = category;
+    }
+
+    public String getModifiedCategory() {
+        return category;
+    }
+
 }

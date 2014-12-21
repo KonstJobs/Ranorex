@@ -1,92 +1,67 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package kcompany.ranorex.classes;
 
-import java.util.Objects;
+
 
 /**
  *
  * @author Konst
  */
 public class Person {
-    
-    private String firstName;
-    private String lastName;
-    private String category;
-    private String gender;
+
+    private final String firstName;
+    private final String lastName;
+    private final Category category;
+    private final Gender gender;
+
+    public static class Builder {
+
+        private final String firstName;
+        private final String lastName;
+        //------------------------
+        private Category category = Category.OTHER;
+        private Gender gender = Gender.MALE;
+
+        public Builder(String firstName, String lastName) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+        }
+
+        public Builder category(Category category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder gender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
+        public Person build() {
+            return new Person(this);
+        }
+    }
+
+    private Person(Builder builder) {
+        firstName = builder.firstName;
+        lastName = builder.lastName;
+        gender = builder.gender;
+        category = builder.category;
+    }
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 29 * hash + Objects.hashCode(this.firstName);
-        hash = 29 * hash + Objects.hashCode(this.lastName);
-        hash = 29 * hash + Objects.hashCode(this.category);
-        hash = 29 * hash + Objects.hashCode(this.gender);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Person other = (Person) obj;
-        if (!Objects.equals(this.firstName, other.firstName)) {
-            return false;
-        }
-        if (!Objects.equals(this.lastName, other.lastName)) {
-            return false;
-        }
-        if (!Objects.equals(this.category, other.category)) {
-            return false;
-        }
-        if (!Objects.equals(this.gender, other.gender)) {
-            return false;
-        }
-        return true;
-    }
-    
-    
-    
-    
-    
-    
 }

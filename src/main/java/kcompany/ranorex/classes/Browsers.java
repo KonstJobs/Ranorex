@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kcompany.ranorex.classes;
 
-import java.io.FileInputStream;
-
-import java.io.InputStreamReader;
-import java.util.Properties;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 /**
  *
@@ -16,38 +11,35 @@ import java.util.Properties;
  */
 public class Browsers {
 
-    private final String config = "src/main/resources/config.properties";
-    private static final Properties property = new Properties();
-    public final String currentBrowser;
+    private final String browser;
+    public WebDriver driver;
 
     public Browsers() {
-            currentBrowser = getMyProperties("browser");
-      
+        browser = System.getProperty("currentBrowser");
     }
 
-    public String getCurrentBrowser() {
-        return currentBrowser;
-    }
+    public WebDriver getDriver() throws BrowserNotFoundExeption {
 
-    public String getMyProperties(String propertyKey) {
-        InputStreamReader input;
-        FileInputStream fileInputStream;
-        try {
-            fileInputStream = new FileInputStream(config);
-            input = new InputStreamReader(fileInputStream, "UTF8");
+        switch (browser) {
 
-            // считываем свойства
-            property.load(input);
+            case "FireFox":
+                driver = new FirefoxDriver();
+                break;
+            case "Chrome":
+                System.setProperty("webdriver.chrome.driver",
+                        "D:\\chromedriver\\chromedriver.exe");
+                driver = new ChromeDriver();
+                break;
 
-            // получаем значение свойства
-            return property.getProperty(propertyKey);
-        } catch (java.io.FileNotFoundException e) {
-            System.out.println("Ошибка. Файл config.properties не был найден.");
-            return null;
-        } catch (java.io.IOException e) {
-            System.out.println("IO ошибка в пользовательском методе.");
-            return null;
+            case "Html":
+                driver = new HtmlUnitDriver();
+                break;
+
+            default:
+                throw new BrowserNotFoundExeption(browser);
+
         }
-    }
 
+        return driver;
+    }
 }

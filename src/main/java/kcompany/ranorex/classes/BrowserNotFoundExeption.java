@@ -9,19 +9,14 @@ package kcompany.ranorex.classes;
  *
  * @author Konst
  */
-public enum Gender {
+public class BrowserNotFoundExeption extends Exception {
 
-    MALE("male"),
-    FEMALE("female");
-
-    private final String gender;
-
-    private Gender(String type) {
-        this.gender = type;
+    public BrowserNotFoundExeption(String message) {
+        super(message);
+        System.out.println("EXEPTION: Browser '" + message + "' not found!!!");
     }
 
-    public String getModifiedGender() {
-        return gender;
+    public BrowserNotFoundExeption() {
     }
 
 }

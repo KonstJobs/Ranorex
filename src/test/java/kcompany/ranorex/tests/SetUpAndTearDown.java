@@ -5,16 +5,14 @@
  */
 package kcompany.ranorex.tests;
 
-
 import java.util.concurrent.TimeUnit;
+import kcompany.ranorex.classes.BrowserNotFoundExeption;
 import kcompany.ranorex.classes.Browsers;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
-
 
 /**
  *
@@ -22,12 +20,14 @@ import org.openqa.selenium.firefox.FirefoxProfile;
  */
 public class SetUpAndTearDown {
 
-    public SetUpAndTearDown() {
-    }
-
-    public WebDriver driver; //= new FirefoxDriver();
+    public WebDriver driver;
     public FirefoxProfile profile;
     private final Browsers browser = new Browsers();
+    public final String testURL;
+
+    public SetUpAndTearDown() {
+        testURL = System.getProperty("testURL");
+    }
 
     @After
     public void TearDown() {
@@ -38,24 +38,12 @@ public class SetUpAndTearDown {
     @Before
     public void SetUp() {
 
-//        File file = new File("D:\\Fprofile");
-//        profile = new FirefoxProfile(file);
-//        
-        // driver = new FirefoxDriver();
-//        String rundriver = System.getProperty("driver");
-//
-//        System.out.println("rundriver before if" + rundriver);
-//        
-//        if (rundriver.equals("Chrome")) {
-//            System.out.println("rundriver in if" + rundriver);
-//            
-//            
-//            System.setProperty("webdriver.chrome.driver", "D:\\chromedriver\\chromedriver.exe");
-//            driver = new ChromeDriver();
-//        } else {
-//            System.out.println("rundriver in else" + rundriver);
+        try {
+            driver = browser.getDriver();
+        } catch (BrowserNotFoundExeption ex) {
+            System.out.println("Test will run in FireFox");
             driver = new FirefoxDriver();
-       // }
+        }
 
         driver.manage().timeouts().pageLoadTimeout(60, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
