@@ -5,14 +5,22 @@
  */
 package kcompany.ranorex.classes;
 
+import java.util.logging.Logger;
+
 /**
  *
  * @author Konst
  */
 public class BrowserNotFoundExeption extends Exception {
+    
+    static Logger log = Logger.getLogger(
+                      BrowserNotFoundExeption.class.getName());
 
     public BrowserNotFoundExeption(String message) {
         super(message);
+     //  log.d("EXEPTION: Browser '" + message + "' not found!!!");
+     log.info("EXEPTION: Browser '" + message + "' not found!!!");
+        
         System.out.println("EXEPTION: Browser '" + message + "' not found!!!");
     }
 
